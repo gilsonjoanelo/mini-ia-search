@@ -1,0 +1,15 @@
+<!-- src/app/auth/login.component.html -->
+<div class="login-container">
+  <h2>{{ isRegister ? 'Criar conta' : 'Entrar' }}</h2>
+  <form (ngSubmit)="submit()">
+    <label>Usuário</label>
+    <input [(ngModel)]="username" name="username" required />
+    <label>Senha</label>
+    <input [(ngModel)]="password" name="password" type="password" required />
+    <button type="submit">{{ isRegister ? 'Registrar' : 'Login' }}</button>
+  </form>
+  <p class="error" *ngIf="error">{{ error }}</p>
+  <a (click)="isRegister = !isRegister" href="javascript:void(0)">
+    {{ isRegister ? 'Já tenho conta' : 'Criar uma conta' }}
+  </a>
+</div>
