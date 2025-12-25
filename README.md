@@ -8,6 +8,7 @@
 *Nestes arquivos, é possível configurar a string de conexão **ConnectionStrings** e a seção **Jwt**.
 
 Para gerar Hash seguro para utilizar no atributo **JWT::Key**, utilize o seguinte comando:
+
 **node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"**
 
 Tabém não esqueça de configurar os atributos **JWT:Issuer** e **JWT::Audience**.
