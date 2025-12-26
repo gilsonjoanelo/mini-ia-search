@@ -3,8 +3,10 @@ using System.Text;
 using ChatApp.Data;
 using ChatApp.Hubs;
 using ChatApp.Services;
+using ChatApp.Services.Internal;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -58,6 +60,30 @@ builder.Services.AddCors(opt =>
 
 var app = builder.Build();
 
+#region Executa as migrações e força o cache das persistencias
+
+using (var scope = app.Services.CreateScope())
+{
+    var migrationDtc = new MigrationAcao();
+    var logger = scope.ServiceProvider.GetRequiredService<ILogger<MigrationAcao>>();
+
+    var options = scope.ServiceProvider.GetRequiredService<DbContextOptions<AppDbContext>>();
+    using (var dbContext = new AppDbContext(options))
+    {
+        var isLiberado = !app.Environment.IsDevelopment();
+        if (!isLiberado && app.Environment.IsDevelopment())
+        {
+            isLiberado = app.Environment.IsDevelopment();
+        }
+        if (isLiberado)
+        {
+            _ = migrationDtc.ExecutarMigracaoDataCempro(dbContext, logger);
+        }
+    }
+}
+
+#endregion
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -70,6 +96,14 @@ app.UseHttpsRedirection();
 app.UseCors("AllowFrontend");
 app.UseAuthentication();
 app.UseAuthorization();
+
+// servir uploads
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(Path.Combine(app.Environment.ContentRootPath, "uploads")),
+    RequestPath = "/uploads"
+});
+
 
 app.MapControllers();
 app.MapHub<ChatHub>("/hubs/chat");

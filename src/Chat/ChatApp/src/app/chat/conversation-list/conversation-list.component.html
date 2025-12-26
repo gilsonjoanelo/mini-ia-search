@@ -1,0 +1,20 @@
+<mat-toolbar color="primary">
+  <span>Conversas</span>
+  <span class="spacer"></span>
+  <button mat-icon-button routerLink="/chat/new">
+    <mat-icon>chat</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-list>
+  <mat-list-item *ngFor="let c of conversations" (click)="open(c)">
+    <mat-icon matListIcon>person</mat-icon>
+    <div matLine>{{ c.title || 'Conversa' }}</div>
+    <div matLine>{{ c.lastMessage || 'Sem mensagens' }}</div>
+    <span *ngIf="c.unreadCount > 0"
+          [matBadge]="c.unreadCount"
+          matBadgeColor="accent"
+          matBadgeOverlap="false">
+    </span>
+  </mat-list-item>
+</mat-list>

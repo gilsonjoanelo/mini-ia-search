@@ -1,0 +1,40 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button routerLink="/conversations">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <span class="title">Chat</span>
+  <span class="spacer"></span>
+  <button mat-icon-button>
+    <mat-icon>more_vert</mat-icon>
+  </button>
+</mat-toolbar>
+
+<div class="messages">
+  <div *ngFor="let m of messages" class="msg" [ngClass]="{me: m.sender === 'me'}">
+    <mat-card>
+      <mat-card-content>
+        <ng-container *ngIf="m.mediaUrl; else textMsg">
+          <img [src]="m.mediaUrl" class="media" />
+        </ng-container>
+        <ng-template #textMsg>{{ m.content }}</ng-template>
+      </mat-card-content>
+      <mat-card-footer>
+        <small>{{ m.at | date:'shortTime' }}</small>
+        <small class="status">{{ m.status }}</small>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+</div>
+
+<mat-toolbar class="composer" color="primary">
+  <input matInput [(ngModel)]="text"
+         placeholder="Mensagem"
+         (keyup.enter)="send()" />
+  <button mat-icon-button (click)="send()">
+    <mat-icon>send</mat-icon>
+  </button>
+  <button mat-icon-button>
+    <input type="file" (change)="uploadFile($event)" hidden #fileInput />
+    <mat-icon (click)="fileInput.click()">attach_file</mat-icon>
+  </button>
+</mat-toolbar>

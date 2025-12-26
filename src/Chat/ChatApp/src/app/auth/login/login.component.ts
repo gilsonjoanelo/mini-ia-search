@@ -1,12 +1,13 @@
-import { AuthService } from './../auth-service';
-// src/app/auth/login.component.ts
+import { AuthService } from './../auth.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-login',
-  templateUrl: './login-component.html',
-  styleUrls: ['./login-component.scss']
+  standalone: false,
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.scss',
 })
 export class LoginComponent {
   username = '';
