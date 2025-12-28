@@ -4,6 +4,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { ChatComponent } from './chat/chat/chat.component';
 import { AuthGuard } from './auth/auth.guard';
 import { ConversationListComponent } from './chat/conversation-list/conversation-list.component';
+import { environment } from '../environments/environment';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -13,7 +14,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes/*, { enableTracing: !environment.production }*/)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
