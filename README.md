@@ -1,14 +1,20 @@
-# Chat
+# 🔍 Mini IA Search - Buscador Semântico RAG Multi-Tenant
 
-## Chat Api
+Este projeto é um motor de **busca semântica e RAG (Retrieval-Augmented Generation) local** construído em **.NET 10 Web API**. A aplicação realiza a raspagem e indexação de sites via `sitemap.xml`, armazena os dados e vetores de forma isolada por *Tenant* no **SQLite**, e responde às dúvidas dos usuários usando o **Ollama** sem dependências de serviços pagos de IA ou infraestrutura externa pesada.
 
-## Configurações
+---
 
-É importante configurar de forma adequeada as chaves secretas do JWT nos arquivos app **_appsettings.json_** e **appsettings.Development.json**.
-*Nestes arquivos, é possível configurar a string de conexão **ConnectionStrings** e a seção **Jwt**.
+## 🚀 Tecnologias Utilizadas
 
-Para gerar Hash seguro para utilizar no atributo **JWT::Key**, utilize o seguinte comando:
+- **Linguagem / Framework:** C# e .NET 10 Web API
+- **Banco de Dados:** SQLite (`Microsoft.Data.Sqlite`) com busca híbrida (Vetores BLOB + FTS5 Full-Text Search)
+- **Modelos de IA (Ollama Local):**
+  - `nomic-embed-text` (Geração de Embeddings/Vetores)
+  - `qwen2.5:7b` (Geração e Síntese de Respostas)
+- **Integração de IA:** `Microsoft.Extensions.AI` e `OllamaSharp`
+- **Raspagem de Dados:** `HtmlAgilityPack`
+- **Comunicação em Tempo Real:** SSE (Server-Sent Events) via HTTP Streaming
 
-**node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"**
+---
 
-Tabém não esqueça de configurar os atributos **JWT:Issuer** e **JWT::Audience**.
+## 🛠️ Arquitetura do Sistema
