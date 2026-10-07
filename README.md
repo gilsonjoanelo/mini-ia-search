@@ -18,7 +18,7 @@ Este projeto é um motor de **busca semântica e RAG (Retrieval-Augmented Genera
 ---
 
 ## 🛠️ Arquitetura do Sistema
-
+```
 [ Sitemap.xml ]
 │
 ▼
@@ -36,6 +36,7 @@ Este projeto é um motor de **busca semântica e RAG (Retrieval-Augmented Genera
 ├──► 1. Busca Híbrida (Produto Escalar + FTS5)
 ├──► 2. Injeção de Contexto no System Prompt
 └─► 3. Streaming (SSE) via qwen2.5:7b para o Usuário
+```
 
 ---
 
